@@ -240,7 +240,7 @@ jobs:
           # Add additional tmpfs config setting
           echo "CONFIG_TMPFS_XATTR=y" >> ./common/arch/arm64/configs/gki_defconfig
 
-      - name: Run sed and perl Commands
+      - name: Run sed 和 perl Commands
         run: |
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
@@ -250,7 +250,7 @@ jobs:
           # Run sed commands for modifications
           sed -i 's/check_defconfig//' ./common/build.config.gki
           sed -i 's/-dirty//' ./common/scripts/setlocalversion
-          sed -i '$s|echo "\$res"|echo "\$res-Wild+"|' ./common/scripts/setlocalversion
+          sed -i '$s|echo "\$res"|echo "-android13-8-axin-star"|' ./common/scripts/setlocalversion
           
           # Run perl command to modify UTS_VERSION
           perl -pi -e 's{UTS_VERSION="\$\(echo \$UTS_VERSION \$CONFIG_FLAGS \$TIMESTAMP \| cut -b -\$UTS_LEN\)"}{UTS_VERSION="#1 SMP PREEMPT Sat Apr 20 04:20:00 UTC 2024"}' ./common/scripts/mkcompile_h
@@ -263,7 +263,7 @@ jobs:
           echo "Building the kernel..."
           LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
 
-      - name: Create Bootimgs Folder and Copy Images
+      - name: Create Bootimgs Folder 和 Copy Images
         run: |
           echo "Changing to configuration directory: $CONFIG..."
           mkdir bootimgs
